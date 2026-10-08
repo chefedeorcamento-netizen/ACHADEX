@@ -27,6 +27,48 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1461990886115289&ev=PageView&noscript=1"/></noscript>
 <!-- ===== FIM META PIXEL ===== -->
+  <!-- ===== TRACKING DASHBOARD ===== -->
+<script>
+(() => {
+  const trackUrl = new URL(
+    "https://dashboard-grupos-bay.vercel.app/api/track"
+  );
+
+  trackUrl.searchParams.set("slug", "grupo-teste");
+
+  const params = new URLSearchParams(window.location.search);
+
+  [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "adset",
+    "ad",
+    "utm_content",
+    "utm_term",
+    "fbclid"
+  ].forEach((key) => {
+    const value = params.get(key);
+
+    if (value) {
+      trackUrl.searchParams.set(key, value);
+    }
+  });
+
+  trackUrl.searchParams.set("page_url", window.location.href);
+
+  if (document.referrer) {
+    trackUrl.searchParams.set("referrer", document.referrer);
+  }
+
+  fetch(trackUrl.toString(), {
+    method: "GET",
+    mode: "no-cors",
+    keepalive: true
+  }).catch(() => {});
+})();
+</script>
+<!-- ===== FIM TRACKING DASHBOARD ===== -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
